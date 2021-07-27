@@ -61,6 +61,9 @@ permiteEntrar(Mago,Casa):-
 permiteEntrar(Mago,slytherin):-
     not(esImpuro(Mago)).
 
+tieneCaracterPara(Casa,Mago):-
+    sombrero(Casa,Mago).
+
 
 
 
