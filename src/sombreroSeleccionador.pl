@@ -28,6 +28,16 @@ esOrgulloso(hermione).
 esInteligente(hermione).
 esResponsable(hermione).
 
+
+casa(gryffindor).
+casa(ravenclaw).
+casa(slytherin).
+casa(hufflepuff).
+
+mago(harry).
+mago(draco).
+mago(hermione).
+
 sombrero/2.
 
 sombrero(gryffindor,Mago):-
@@ -44,6 +54,12 @@ sombrero(ravenclaw,Mago):-
 sombrero(hufflepuff,Mago):-
     esAmistoso(Mago).
 
+permiteEntrar(Mago,Casa):-
+    mago(Mago),
+    casa(Casa).
+
+permiteEntrar(Mago,slytherin):-
+    not(esImpuro(Mago)).
 
 
 
