@@ -64,12 +64,21 @@ permiteEntrar(Mago,slytherin):-
 tieneCaracterPara(Casa,Mago):-
     sombrero(Casa,Mago).
 
-quedaEn(Mago,Casa):-
+podriaQuedarEn(Mago,Casa):-
     tieneCaracterPara(Casa,Mago),
     permiteEntrar(Mago,Casa),
     not(odiaCasa(Mago,Casa)).
 
-quedaEn(hermione,gryffindor).
+podriaQuedarEn(hermione,gryffindor).
+
+cadenaDeAmistades/1.
+
+cadenaDeAmistades(Magos):-
+    forall(member(Mago,Magos),esAmistoso(Mago)),
+    nth1(Posicion,Mago,Magos),
+    nth1(Posicion+1,Mago2,Magos),
+    podriaQuedarEn(Mago,Casa),
+    podriaQuedarEn(Mago2,Casa).
 
 
 
