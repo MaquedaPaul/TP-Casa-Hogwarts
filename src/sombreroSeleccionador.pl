@@ -64,7 +64,12 @@ permiteEntrar(Mago,slytherin):-
 tieneCaracterPara(Casa,Mago):-
     sombrero(Casa,Mago).
 
+quedaEn(Mago,Casa):-
+    tieneCaracterPara(Casa,Mago),
+    permiteEntrar(Mago,Casa),
+    not(odiaCasa(Mago,Casa)).
 
+quedaEn(hermione,gryffindor).
 
 
 
