@@ -1,20 +1,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Parte 1 - Sombrero Seleccionador
+%% Parte 1 - tieneCaracterPara Seleccionador
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 es/2.
-caracter/1.
 odiaCasa/2.
 casa/1.
 mago/1.
-sombrero/2.
+tieneCaracterPara/2.
 permiteEntrar/2.
 tieneCaracterPara/2.
 podriaQuedarEn/2.
 cadenaDeAmistades/1.
 
-es(_,Mago):-
-    mago(Mago).
 
 %Harry
 es(corajudo,harry).
@@ -47,19 +44,7 @@ mago(hermione).
 
 
 
-sombrero(gryffindor,Mago):-
-    es(corajudo,Mago).
 
-sombrero(slytherin,Mago):-
-    es(inteligente,Mago),
-    es(orgulloso,Mago).
-
-sombrero(ravenclaw,Mago):-
-    es(inteligente,Mago),
-    es(responsable,Mago).
-
-sombrero(hufflepuff,Mago):-
-    es(amistoso,Mago).
 
 permiteEntrar(Mago,Casa):-
     mago(Mago),
@@ -69,8 +54,21 @@ permiteEntrar(Mago,Casa):-
 permiteEntrar(Mago,slytherin):-
     not(es(impuro,Mago)).
 
+caracteristicaBuscada(gryffindor,corajudo).
+caracteristicaBuscada(slytherin,inteligente).
+caracteristicaBuscada(slytherin,orgulloso).
+caracteristicaBuscada(ravenclaw,inteligente).
+caracteristicaBuscada(ravenclaw,responsable).
+caracteristicaBuscada(hufflepuff,corajudo).
+
+
 tieneCaracterPara(Casa,Mago):-
-    sombrero(Casa,Mago).
+    casa(Casa),
+    mago(Mago),
+    forall(caracteristicaBuscada(Casa,Caracteristica),es(Caracteristica,Mago)).
+
+
+
 
 podriaQuedarEn(Mago,Casa):-
     tieneCaracterPara(Casa,Mago),
