@@ -32,3 +32,60 @@ de hackear al sombrero.
 
 4. Definir un predicado cadenaDeAmistades/1 que se cumple para una lista de magos si todos ellos se caracterizan por ser amistosos y cada uno podría estar en la misma casa que el siguiente. No hace falta que sea inversible, se consultará de forma individual.
 
+---------------------------------------------------------------------
+
+
+- Malas acciones: son andar de noche fuera de la cama (que resta 50 puntos) o ir a lugares prohibidos. La
+cantidad de puntos que se resta por ir a un lugar prohibido se indicará para cada lugar. Ir a un lugar que
+no está prohibido no afecta al puntaje.
+- Buenas acciones: son reconocidas por los profesores y prefectos individualmente y el puntaje se indicará
+para cada acción premiada.
+
+Necesitamos registrar las distintas acciones que hicieron los alumnos de Hogwarts durante el año. Sabemos que:
+● Harry anduvo fuera de cama.
+● Hermione fue al tercer piso y a la sección restringida de la biblioteca.
+● Harry fue al bosque y al tercer piso.
+● Draco fue a las mazmorras.
+● A Ron le dieron 50 puntos por su buena acción de ganar una partida de ajedrez mágico.
+● A Hermione le dieron 50 puntos por usar su intelecto para salvar a sus amigos de una muerte horrible.
+● A Harry le dieron 60 puntos por ganarle a Voldemort.
+También sabemos que los siguientes lugares están prohibidos:
+● El bosque, que resta 50 puntos.
+● La sección restringida de la biblioteca, que resta 10 puntos.
+● El tercer piso, que resta 75 puntos.
+
+También sabemos en qué casa quedó seleccionado efectivamente cada alumno mediante el predicado esDe/2
+que relaciona a la persona con su casa, por ejemplo:
+esDe(hermione, gryffindor).
+esDe(ron, gryffindor).
+esDe(harry, gryffindor).
+esDe(draco, slytherin).
+esDe(luna, ravenclaw).
+
+1. 
+a. Saber si un mago es buen alumno, que se cumple si hizo alguna acción y ninguna de las cosas
+que hizo se considera una mala acción (que son aquellas que provocan un puntaje negativo).
+b. Saber si una acción es recurrente, que se cumple si más de un mago hizo esa misma acción.
+2. Saber cuál es el puntaje total de una casa, que es la suma de los puntos obtenidos por sus miembros.
+3. Saber cuál es la casa ganadora de la copa, que se verifica para aquella casa que haya obtenido una
+cantidad mayor de puntos que todas las otras.
+
+4. Queremos agregar la posibilidad de ganar puntos por responder preguntas en clase. La información que
+nos interesa de las respuestas en clase son: cuál fue la pregunta, cuál es la dificultad de la pregunta y qué
+profesor la hizo.
+Por ejemplo, sabemos que Hermione respondió a la pregunta de dónde se encuentra un Bezoar, de
+dificultad 20, realizada por el profesor Snape, y cómo hacer levitar una pluma, de dificultad 25, realizada
+por el profesor Flitwick.
+Modificar lo que sea necesario para que este agregado funcione con lo desarrollado hasta ahora, teniendo
+en cuenta que los puntos que se otorgan equivalen a la dificultad de la pregunta, a menos que la haya
+hecho Snape, que da la mitad de puntos en relación a la dificultad de la pregunta.
+
+
+
+
+
+
+
+
+
+
