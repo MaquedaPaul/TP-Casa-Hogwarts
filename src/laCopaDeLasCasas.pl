@@ -28,8 +28,11 @@ puntajeTotalCasa(Casa, PuntajeTotalCasa):-
     esDe(_,Casa),
     findall(Puntaje, (esDe(Alumno,Casa), hizo(Alumno,accion(_,Puntaje))), Puntajes),
     sumlist(Puntajes, PuntajeTotalCasa).
-    
-    
+
+casaGanadora(Casa):-
+    puntajeTotalCasa(Casa,PuntajeCasa),
+    forall(esDe(_,Casas),(puntajeTotalCasa(Casas, Puntajes),Puntajes < PuntajeCasa)).
+
 
 
     
