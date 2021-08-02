@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Parte 1 - tieneCaracterPara Seleccionador
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+ :-style_check(-discontiguous).
 es/2.
 odiaCasa/2.
 casa/1.
@@ -78,11 +78,39 @@ podriaQuedarEn(Mago,Casa):-
 podriaQuedarEn(hermione,gryffindor).
 
 cadenaDeAmistades(Magos):-
-    forall(member(Mago,Magos),es(amistoso,Mago)),
-    nth1(Posicion,Mago,Magos),
-    nth1(Posicion+1,Mago2,Magos),
-    podriaQuedarEn(Mago,Casa),
-    podriaQuedarEn(Mago2,Casa).
+    %%son todos amistosos
+    todosAmistosos(Magos),
+    mismaCasaSiguiente(Magos).
+    %nth1(Posicion,Mago,Magos),
+    %nth1(Posicion+1,Mago2,Magos),
+    %podriaQuedarEn(Mago,Casa),
+    %podriaQuedarEn(Mago2,Casa).
+
+mismaCasaSiguiente(Magos):-
+    forall(consecutivos(Mago1,Mago2,Magos),podrianQuedarEnMismaCasa(Mago1,Mago2)).
+
+podrianQuedarEnMismaCasa(Mago1,Mago2):-
+    podriaQuedarEn(Mago1,Casa),
+    podriaQuedarEn(Mago2,Casa),
+    Mago1 \= Mago2.
+
+todosAmistosos(Magos):-
+    forall(member(Mago,Magos),es(amistoso,Mago)).
+
+consecutivos(Anterior, Siguiente, Lista):-
+    nth1(IndiceAnterior, Lista, Anterior),
+    IndiceSiguiente is IndiceAnterior + 1,
+    nth1(IndiceSiguiente, Lista, Siguiente).
 
 
 
+%Con recursividad.
+% cadenaDeCasas(Magos)
+/*
+cadenaDeCasas([Mago1, Mago2 | MagosSiguientes]):-
+  puedeQuedarSeleccionadoPara(Mago1, Casa),
+  puedeQuedarSeleccionadoPara(Mago2, Casa),
+  cadenaDeCasas([Mago2 | MagosSiguientes]).
+cadenaDeCasas([_]).
+cadenaDeCasas([]).
+*/
