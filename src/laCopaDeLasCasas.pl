@@ -25,8 +25,8 @@ hizo(harry,accion(ganarVoldemort,60)).
 
 
 esBuenAlumno(Alumno,Accion):-
-    esDe(Alumno,_),
-    not(esMalaAccion(Accion)).
+    hizo(Alumno,_),
+    forall(hizo(Alumno,Accion),not(esMalaAccion(Accion))).
 
 esMalaAccion(accion(_,Puntaje)):-
     Puntaje < 0.
