@@ -13,22 +13,43 @@ esDe(luna, ravenclaw).
 hizo/2.
 
 hizo(harry,accion(andarDeNoche,-50)).
-hizo(hermione,accion(irTercerPiso,-75)).
-hizo(hermione,accion(irTercerPiso,-10)).
-hizo(harry,accion(irBosque,-50)).
-hizo(harry,accion(irTercerPiso,-10)).
-hizo(draco,accion(mazmorras,0)).
-hizo(ron,accion(ganarAjedrez,50)).
-hizo(harry,accion(andarDeNoche,-50)).
-hizo(hermione,accion(usarIntelecto,50)).
+hizo(hermione,irA(seccionBiblioteca)).
+hizo(hermione,irA(tercerPiso)).
+hizo(harry,irA(bosque)).
+hizo(harry,irA(tercerPiso)).
+hizo(draco,irA(mazmorras)).
+hizo(ron,buenaAccion(ganarAjedrez,50)).
+hizo(harry,andarDeNoche).
+hizo(hermione,buenaAccion(usarIntelecto,50)).
 hizo(harry,accion(ganarVoldemort,60)).
 
+puntajeQueGenera(andarDeNoche,-50).
+puntajeQueGenera(irA(bosque),-50).
+puntajeQueGenera(irA(tercerPiso),-50).
+puntajeQueGenera(irA(mazmorras),0).
+puntajeQueGenera(irA(seccionBiblioteca),-10).
+puntajeQueGenera(buenaAccion(_,Puntaje), Puntaje).
 
-esBuenAlumno(Alumno,Accion):-
-    hizo(Alumno,_),
-    forall(hizo(Alumno,Accion),not(esMalaAccion(Accion))).
+/*
+puntajeQueGenera(fueraDeCama, -50).
+puntajeQueGenera(irA(Lugar), PuntajeQueResta):-
+  lugarProhibido(Lugar, Puntos),
+  PuntajeQueResta is Puntos * -1.
+puntajeQueGenera(buenaAccion(Puntaje, _), Puntaje).
 
-esMalaAccion(accion(_,Puntaje)):-
+lugarProhibido(bosque, 50).
+lugarProhibido(seccionRestringida, 10).
+lugarProhibido(tercerPiso, 75).
+*/
+
+
+
+esBuenAlumno(Alumno):-
+    hizo(Alumno,Accion),
+    forall(hizo(Alumno,Acciones),not(esMalaAccion(Acciones))).
+
+esMalaAccion(Accion):-
+    puntajeQueGenera(Accion,Puntaje),
     Puntaje < 0.
 
 esRecurrente(Accion):-
