@@ -3,6 +3,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  :-style_check(-discontiguous).
 esDe/2.
+puntajeTotalCasa/2.
 
 esDe(hermione, gryffindor).
 esDe(ron, gryffindor).
@@ -23,7 +24,7 @@ hizo(harry,andarDeNoche).
 hizo(hermione,buenaAccion(usarIntelecto,50)).
 hizo(harry,buenaAccion(ganarVoldemort,60)).
 hizo(hermione,respondio(dondeBezoar,20,snape)).
-
+hizo(harry,respondio(dondeBezoar,20,epa)).
 
 puntajeQueGenera(andarDeNoche,-50).
 puntajeQueGenera(irA(bosque),-50).
@@ -31,7 +32,8 @@ puntajeQueGenera(irA(tercerPiso),-50).
 puntajeQueGenera(irA(mazmorras),0).
 puntajeQueGenera(irA(seccionBiblioteca),-10).
 puntajeQueGenera(buenaAccion(_,Puntaje), Puntaje).
-puntajeQueGenera(respondio(_,Dificultad,_),Puntaje):-
+puntajeQueGenera(respondio(_,Dificultad,Profesor),Puntaje):-
+    Profesor \= snape,
     Puntaje is Dificultad.
 
 puntajeQueGenera(respondio(_,Dificultad,snape),Puntaje):-
@@ -49,10 +51,8 @@ lugarProhibido(seccionRestringida, 10).
 lugarProhibido(tercerPiso, 75).
 */
 
-
-
 esBuenAlumno(Alumno):-
-    hizo(Alumno,Accion),
+    hizo(Alumno,_),
     forall(hizo(Alumno,Acciones),not(esMalaAccion(Acciones))).
 
 esMalaAccion(Accion):-
@@ -66,18 +66,23 @@ esRecurrente(Accion):-
     hizo(Alumno,Accion),
     hizo(Alumno2,Accion).
 
-puntajeTotalCasa(Casa, PuntajeTotalCasa):-
-    esDe(_,Casa),
-    findall(Puntaje, (esDe(Alumno,Casa), hizo(Alumno,accion(_,Puntaje))), Puntajes),
-    sumlist(Puntajes, PuntajeTotalCasa).
+
+puntajeTotalCasa(Casa, PuntajeTotal):-
+  esDe(_, Casa),
+  findall(Puntos,
+    (esDe(Mago, Casa), puntosQueObtuvo(Mago, _, Puntos)),
+    ListaPuntos),
+  sum_list(ListaPuntos, PuntajeTotal).
+
+
+puntosQueObtuvo(Mago, Accion, Puntos):-
+  hizo(Mago, Accion),
+  puntajeQueGenera(Accion, Puntos).
+
 
 casaGanadora(Casa):-
     puntajeTotalCasa(Casa,PuntajeCasa),
-    forall(esDe(_,Casas),(puntajeTotalCasa(Casas, Puntajes),Puntajes < PuntajeCasa)).
-
-
-
-
+    forall((puntajeTotalCasa(Casas, Puntajes), Casas \= Casa), PuntajeCasa > Puntajes).
 
 
 
