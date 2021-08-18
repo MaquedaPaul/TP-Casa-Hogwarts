@@ -21,7 +21,9 @@ hizo(draco,irA(mazmorras)).
 hizo(ron,buenaAccion(ganarAjedrez,50)).
 hizo(harry,andarDeNoche).
 hizo(hermione,buenaAccion(usarIntelecto,50)).
-hizo(harry,accion(ganarVoldemort,60)).
+hizo(harry,buenaAccion(ganarVoldemort,60)).
+hizo(hermione,respondio(dondeBezoar,20,snape)).
+
 
 puntajeQueGenera(andarDeNoche,-50).
 puntajeQueGenera(irA(bosque),-50).
@@ -29,6 +31,11 @@ puntajeQueGenera(irA(tercerPiso),-50).
 puntajeQueGenera(irA(mazmorras),0).
 puntajeQueGenera(irA(seccionBiblioteca),-10).
 puntajeQueGenera(buenaAccion(_,Puntaje), Puntaje).
+puntajeQueGenera(respondio(_,Dificultad,_),Puntaje):-
+    Puntaje is Dificultad.
+
+puntajeQueGenera(respondio(_,Dificultad,snape),Puntaje):-
+    Puntaje is Dificultad/2.
 
 /*
 puntajeQueGenera(fueraDeCama, -50).
